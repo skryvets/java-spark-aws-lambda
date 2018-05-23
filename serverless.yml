@@ -1,0 +1,17 @@
+service: spark-stress-test
+
+provider:
+  name: aws
+  runtime: java8
+  stage: dev
+  region: us-east-1
+
+package:
+  artifact: target/spark-cloud-1.0.jar
+
+functions:
+  app:
+    handler: StreamLambdaHandler::handleRequest
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
